@@ -1,5 +1,7 @@
 package com.example.myapplicationrfergsreg;
 
+import java.net.ProtocolException;
+
 public interface Contract {
     interface View {
         void showProgress(); // method to display progress bar when next random course details is being fetched
@@ -16,7 +18,7 @@ public interface Contract {
     }
 
     interface Presenter {
-        void onButtonClick(); // method to be called when the button is clicked
+        void onButtonClick() throws Exception; // method to be called when the button is clicked
         void onDestroy(); // method to destroy lifecycle of MainActivity
     }
 }

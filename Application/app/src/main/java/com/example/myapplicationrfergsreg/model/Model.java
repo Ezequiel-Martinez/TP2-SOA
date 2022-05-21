@@ -1,11 +1,20 @@
 package com.example.myapplicationrfergsreg.model;
 
 import android.os.Handler;
+import android.util.JsonReader;
+
 import com.example.myapplicationrfergsreg.Contract;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Model implements Contract.Model {
 
@@ -33,6 +42,8 @@ public class Model implements Contract.Model {
             }
         }, 1200);
     }
+
+
 
     // method to select random string from the list of strings
     private String getRandomString() {
