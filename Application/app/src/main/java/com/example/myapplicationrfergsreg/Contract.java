@@ -1,17 +1,19 @@
 package com.example.myapplicationrfergsreg;
 
+import android.graphics.Bitmap;
+
 import java.net.ProtocolException;
 
 public interface Contract {
     interface View {
         void showProgress(); // method to display progress bar when next random course details is being fetched
         void hideProgress(); // method to hide progress bar when next random course details is being fetched
-        void setString(String string); // method to set random text on the TextView
+        void setPokemon(String nombre, String peso, String altura, Bitmap imagen);
     }
 
     interface Model {
         interface OnFinishedListener {
-            void onFinished(String string); // function to be called once the Handler of Model class completes its execution
+            void onFinished(); // function to be called once the Handler of Model class completes its execution
         }
 
         void getNextCourse(Contract.Model.OnFinishedListener onFinishedListener);

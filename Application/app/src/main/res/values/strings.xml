@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">GfG | MVP Architecture</string>
-    <string name="buttonText">Display Next Course</string>
-    <string name="heading">MVP Architecture Pattern</string>
-    <string name="subHeading">GeeksforGeeks Computer Science Online Courses</string>
-    <string name="description">Course Description</string>
+    <string name="app_name">API POKEMON</string>
+    <string name="buttonText">Obtener siguiente pokemon</string>
+    <string name="heading">API POKEMON</string>
+    <string name="subHeading">Características de Pokemones</string>
 </resources>

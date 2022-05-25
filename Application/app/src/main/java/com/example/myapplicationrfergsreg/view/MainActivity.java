@@ -1,10 +1,12 @@
 package com.example.myapplicationrfergsreg.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import com.example.myapplicationrfergsreg.Contract;
 import com.example.myapplicationrfergsreg.R;
-import com.example.myapplicationrfergsreg.model.Model;
 import com.example.myapplicationrfergsreg.presenter.Presenter;
 import android.view.View;
 import android.widget.Button;
@@ -15,22 +17,24 @@ import android.widget.TextView;
 import static android.view.View.GONE;
 
 public class MainActivity extends AppCompatActivity implements Contract.View {
-    private TextView textView;
+    private TextView nombrePokemon;
+    private TextView descripcionPokemon;
     private ProgressBar progressBar;
     Contract.Presenter presenter;
-    private ImageView vistaPokemon;
+    private ImageView imagenPokemon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView);
+        nombrePokemon = findViewById(R.id.PokemonName);
         Button button = findViewById(R.id.button);
         progressBar = findViewById(R.id.progressBar);
-        vistaPokemon = findViewById(R.id.imagenPokemon);
+        imagenPokemon = findViewById(R.id.PokemonImage);
+        descripcionPokemon = findViewById(R.id.PokemonDescription);
 
-        presenter = new Presenter(this, new Model(), vistaPokemon);
+        presenter = new Presenter(this, imagenPokemon);
 
         // operations to be performed when user clicks the button
         button.setOnClickListener(new View.OnClickListener() {
@@ -60,19 +64,27 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
     // method to display the Course Detail TextView
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
-        textView.setVisibility(View.INVISIBLE);
+        nombrePokemon.setVisibility(View.INVISIBLE);
+        descripcionPokemon.setVisibility(View.INVISIBLE);
+        imagenPokemon.setVisibility(View.INVISIBLE);
     }
 
     @Override
     // method to hide the Course Detail TextView
     public void hideProgress() {
         progressBar.setVisibility(GONE);
-        textView.setVisibility(View.VISIBLE);
+        nombrePokemon.setVisibility(View.VISIBLE);
+        descripcionPokemon.setVisibility(View.VISIBLE);
+        imagenPokemon.setVisibility(View.VISIBLE);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     // method to set random string in the Course Detail TextView
-    public void setString(String string) {
-        textView.setText(string);
+    public void setPokemon(String nombre, String peso, String altura, Bitmap imagen) {
+        nombrePokemon.setText(nombre);
+        descripcionPokemon.setText( "Peso: " + peso + "\n" +
+                                    "Altura: " + altura + "\n");
+        imagenPokemon.setImageBitmap(imagen);
     }
 }

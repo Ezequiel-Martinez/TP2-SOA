@@ -2,6 +2,7 @@ package com.example.myapplicationrfergsreg.model;
 
 import android.os.AsyncTask;
 import android.util.JsonReader;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.myapplicationrfergsreg.presenter.Presenter;
@@ -10,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,14 +19,14 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class APIConnection extends AsyncTask { // TIENE QUE EJECUTAR EN SEGUNDO PLANO
+public class APIPokemonConnection extends AsyncTask { // TIENE QUE EJECUTAR EN SEGUNDO PLANO
     String apiURL;
     InputStreamReader isr;
     String result = "";
     Presenter presenter;
     ImageView imageView;
 
-    public APIConnection (String apiURL, Presenter presenter, ImageView imageView) {
+    public APIPokemonConnection(String apiURL, Presenter presenter, ImageView imageView) {
         this.apiURL = apiURL;
         this.presenter = presenter;
         this.imageView = imageView;
@@ -44,12 +46,10 @@ public class APIConnection extends AsyncTask { // TIENE QUE EJECUTAR EN SEGUNDO 
                 InputStream responseBody = urlConnection.getInputStream();
                 isr = new InputStreamReader(responseBody, "UTF-8");
 
-                int data = isr.read();
+                BufferedReader reader = new BufferedReader(isr);
 
-                while (data != -1) {
-                    result += (char) data;
-                    data = isr.read();
-
+                for (String line; (line = reader.readLine()) != null;) {
+                    result += line;
                 }
 
                 return result;
@@ -80,8 +80,11 @@ public class APIConnection extends AsyncTask { // TIENE QUE EJECUTAR EN SEGUNDO 
             JSONObject artwork = otherSprites.getJSONObject("official-artwork");
             String urlArtwork = artwork.getString("front_default");
             String nombre = jsonObject.getString("name");
+            String peso = jsonObject.getString("weight");
+            String altura = jsonObject.getString("height");
 
             presenter.loadImage(urlArtwork, imageView);
+            presenter.setPokemonStrings(nombre, peso, altura);
 
 
         } catch (JSONException e) {

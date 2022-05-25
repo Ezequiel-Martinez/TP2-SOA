@@ -1,27 +1,27 @@
 package com.example.myapplicationrfergsreg.presenter;
 
-import android.media.Image;
+import android.graphics.Bitmap;
 import android.util.JsonReader;
 import android.widget.ImageView;
 
 import com.example.myapplicationrfergsreg.Contract;
-import com.example.myapplicationrfergsreg.R;
-import com.example.myapplicationrfergsreg.model.APIConnection;
+import com.example.myapplicationrfergsreg.model.APIPokemonConnection;
 import com.example.myapplicationrfergsreg.model.ImageLoader;
 
 public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedListener {
 
     private Contract.View mainView;
-    private Contract.Model model;
-    private APIConnection apiConnection;
+    private APIPokemonConnection apiConnection;
     private ImageView vistaPokemon;
-    JsonReader jsonReader;
+    private Bitmap imagenPokemon;
+    private String nombrePokemon;
+    private String pesoPokemon;
+    private String alturaPokemon;
+    private int counter = 1;
 
-    public Presenter(Contract.View mainView, Contract.Model model, ImageView imageView) {
+    public Presenter(Contract.View mainView, ImageView imageView) {
         this.mainView = mainView;
-        this.model = model;
         this.vistaPokemon = imageView;
-        apiConnection = new APIConnection("https://pokeapi.co/api/v2/pokemon/ditto", this, vistaPokemon);
     }
 
     @Override
@@ -29,8 +29,11 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
         if (mainView != null) {
             mainView.showProgress();
         }
-        model.getNextCourse(this);
+        //model.getNextCourse(this);
+        String apiURL = "https://pokeapi.co/api/v2/pokemon/" + counter;
+        apiConnection = new APIPokemonConnection(apiURL, this, vistaPokemon);
         apiConnection.execute();
+        counter++;
 
     }
 
@@ -39,16 +42,25 @@ public class Presenter implements Contract.Presenter, Contract.Model.OnFinishedL
         mainView = null;
     }
 
-    @Override
     // method to return the string which will be displayed in the Course Detail TextView
-    public void onFinished(String string) {
+    public void onFinished() {
         if (mainView != null) {
-            mainView.setString(string);
+            mainView.setPokemon(nombrePokemon, pesoPokemon, alturaPokemon, imagenPokemon);
             mainView.hideProgress();
         }
     }
 
     public void loadImage(String url, ImageView imageView) {
-        new ImageLoader(url, vistaPokemon).execute();
+        new ImageLoader(url, vistaPokemon, this).execute();
+    }
+
+    public void setPokemonImage(Bitmap image) {
+        imagenPokemon = image;
+    }
+
+    public void setPokemonStrings(String nombre, String peso, String altura) {
+        nombrePokemon = nombre;
+        pesoPokemon = peso;
+        alturaPokemon = altura;
     }
 }
