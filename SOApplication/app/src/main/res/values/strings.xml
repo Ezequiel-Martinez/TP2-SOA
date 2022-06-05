@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">GfG | MVP Architecture</string>
+    <string name="buttonText">Display Next Course</string>
+    <string name="heading">MVP Architecture Pattern</string>
+    <string name="subHeading">GeeksforGeeks Computer Science Online Courses</string>
+    <string name="description">Course Description</string>
+    <string name="BotonEnviarSMS">EnviarSMS</string>
+    <string name="IngresarCodigo">IntroducirCodigo</string>
+    <string name="IngresarNumero">Introducir Numero</string>
+    <string name="SMSTitulo">SMS</string>
+    <string name="BotonVerificar">Verificar</string>
+
+    <string name="btn_login">login</string>
+    <string name="btn_accept">accept</string>
+    <string name="btn_register">register</string>
+    <string name="empty_string"></string>
+    <string name="name">Nombre</string>
+    <string name="lastname">Apellido</string>
+    <string name="dni">DNI</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="commission">Comision</string>
+    <string name="group">Grupo</string>
+
+    <string name="button_next_pokemon">Obtener siguiente pokemon</string>
+    <!-- <string name="heading">API POKEMON</string>
+    <string name="subHeading">Características de Pokemones</string> -->
+
+    <string name="button_back">Volver</string>
+
+</resources>

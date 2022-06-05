@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">API POKEMON</string>
-    <string name="buttonText">Obtener siguiente pokemon</string>
-    <string name="heading">API POKEMON</string>
-    <string name="subHeading">Características de Pokemones</string>
-</resources>
