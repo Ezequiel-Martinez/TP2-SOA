@@ -1,12 +1,8 @@
 package com.example.soapplication.api_publica_activity.presenter;
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.hardware.Sensor;
-import android.media.MediaPlayer;
-import android.os.Vibrator;
+import android.hardware.SensorManager;
 import android.widget.ImageView;
-
 import com.example.soapplication.api_publica_activity.model.APIPokemonConnection;
 import com.example.soapplication.api_publica_activity.ContractPokemon;
 import com.example.soapplication.api_publica_activity.model.ImageLoader;
@@ -24,8 +20,8 @@ public class PresenterPokemon implements ContractPokemon.Presenter, ContractPoke
     private String alturaPokemon;
     private int counter = 1;
 
-    public PresenterPokemon(ContractPokemon.View mainView, ImageView imageView, ModelPokemon model) {
-        this.model = model;
+    public PresenterPokemon(ContractPokemon.View mainView, ImageView imageView, SensorManager sensorManager) {
+        this.model = new ModelPokemon(mainView,sensorManager);
         this.mainView = mainView;
         this.vistaPokemon = imageView;
     }
@@ -45,7 +41,7 @@ public class PresenterPokemon implements ContractPokemon.Presenter, ContractPoke
         if (mainView != null) {
             mainView.showProgress();
         }
-        //model.getNextCourse(this);
+
         String apiURL = "https://pokeapi.co/api/v2/pokemon/" + counter;
         apiConnection = new APIPokemonConnection(apiURL, this, vistaPokemon);
         apiConnection.execute();
@@ -56,7 +52,6 @@ public class PresenterPokemon implements ContractPokemon.Presenter, ContractPoke
     public void onDestroy() {
         mainView = null;
     }
-
     // method to return the string which will be displayed in the Course Detail TextView
     public void onFinished() {
         if (mainView != null) {
@@ -67,14 +62,7 @@ public class PresenterPokemon implements ContractPokemon.Presenter, ContractPoke
 
     @Override
     public void onEventSensorChanged(int sensorType) {
-        //TODO: Mirar si esto esta bien aca, o deberia notificar al model y que se haga esto en esa clase
-        if(sensorType == Sensor.TYPE_PROXIMITY){
-            MediaPlayer mediaPlayer = MediaPlayer.create((Context) this.mainView, com.example.soapplication.R.raw.alert_sound);
-            mediaPlayer.start();
-        }
-        if(sensorType == Sensor.TYPE_GYROSCOPE){
-            ((Vibrator)((Context)mainView).getSystemService(Context.VIBRATOR_SERVICE)).vibrate(500);
-        }
+        model.processSensor(mainView,sensorType);
     }
 
     public void loadImage(String url, ImageView imageView) {

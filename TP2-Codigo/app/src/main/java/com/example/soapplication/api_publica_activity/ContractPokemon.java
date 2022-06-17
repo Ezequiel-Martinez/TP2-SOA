@@ -17,6 +17,7 @@ public interface ContractPokemon {
 
         void registerSensorListener(OnFinishedListener listener);
         void unregisterSensorListener();
+        void processSensor(ContractPokemon.View view, int sensorType);
     }
 
     interface Presenter {

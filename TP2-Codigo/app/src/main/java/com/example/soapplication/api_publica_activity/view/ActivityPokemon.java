@@ -13,7 +13,6 @@ import android.widget.TextView;
 import static android.view.View.GONE;
 import com.example.soapplication.R;
 import com.example.soapplication.api_publica_activity.ContractPokemon;
-import com.example.soapplication.api_publica_activity.model.ModelPokemon;
 import com.example.soapplication.api_publica_activity.presenter.PresenterPokemon;
 
 public class ActivityPokemon extends AppCompatActivity implements ContractPokemon.View {
@@ -34,17 +33,14 @@ public class ActivityPokemon extends AppCompatActivity implements ContractPokemo
         imagenPokemon = findViewById(R.id.PokemonImage);
         descripcionPokemon = findViewById(R.id.PokemonDescription);
 
-        presenter = new PresenterPokemon(this, imagenPokemon,new ModelPokemon((SensorManager) getSystemService(SENSOR_SERVICE)));
+        presenter = new PresenterPokemon(this, imagenPokemon,(SensorManager) getSystemService(SENSOR_SERVICE));
 
         // operations to be performed when user clicks the button
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    presenter.onButtonClick();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        button.setOnClickListener(v -> {
+            try {
+                presenter.onButtonClick();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

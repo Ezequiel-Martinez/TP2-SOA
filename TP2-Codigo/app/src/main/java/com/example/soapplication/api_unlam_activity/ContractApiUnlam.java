@@ -9,7 +9,6 @@ public interface ContractApiUnlam {
 
     interface Model{
         interface OnEventListener{
-            void onEventLog(boolean result, String token);
             void onEventLogin(boolean result, String token);
             void onEventRegister(boolean result, String token);
         }

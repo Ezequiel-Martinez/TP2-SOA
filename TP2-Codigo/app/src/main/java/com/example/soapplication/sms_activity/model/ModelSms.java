@@ -1,6 +1,7 @@
 package com.example.soapplication.sms_activity.model;
 
 import android.telephony.SmsManager;
+import android.util.Log;
 import com.example.soapplication.sms_activity.ContractSms;
 import java.util.Random;
 

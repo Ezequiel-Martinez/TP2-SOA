@@ -75,7 +75,6 @@ public class ModelApiUnlam implements ContractApiUnlam.Model {
     public void logEvent(OnEventListener listener, String type, String description) {
         try {
             if(user_token == null){
-                listener.onEventLog(false,null);
                 return;
             }
 

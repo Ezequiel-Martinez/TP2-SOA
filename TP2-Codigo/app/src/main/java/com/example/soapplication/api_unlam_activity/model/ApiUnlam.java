@@ -32,7 +32,6 @@ public class ApiUnlam extends AsyncTask{
     @Override
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     protected Object doInBackground(Object[] objects) {
-
         URL url;
         int connection_response_code;
         String connection_response_body = null;
@@ -60,15 +59,16 @@ public class ApiUnlam extends AsyncTask{
             connection.connect();
             connection_response_code = connection.getResponseCode(); //codigo de respuesta del server
 
-            if(connection_response_code == HttpURLConnection.HTTP_OK){
+            if(connection_response_code == HttpURLConnection.HTTP_OK || connection_response_code == HttpURLConnection.HTTP_CREATED) {
                 String line;
                 InputStreamReader inputStreamReader = new InputStreamReader(connection.getInputStream()); //para leer el response del server
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 connection_response_body = "";
-                while((line = bufferedReader.readLine()) != null){
+                while ((line = bufferedReader.readLine()) != null) {
                     connection_response_body += line;
                 }
             }
+            dataOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -76,7 +76,6 @@ public class ApiUnlam extends AsyncTask{
                 connection.disconnect();
             }
         }
-
         return connection_response_body;
     }
 
@@ -98,7 +97,6 @@ public class ApiUnlam extends AsyncTask{
                         this.listener.onEventRegister(true,jsonObject.getString("token"));
                         return;
                     }
-                    this.listener.onEventLog(true,"");
                 }
                 else{
                     if(this.current_dir.contains(dir_login)){
@@ -109,7 +107,6 @@ public class ApiUnlam extends AsyncTask{
                         this.listener.onEventRegister(false,null);
                         return;
                     }
-                    this.listener.onEventLog(false,null);
                 }
             }
         } catch (JSONException e) {

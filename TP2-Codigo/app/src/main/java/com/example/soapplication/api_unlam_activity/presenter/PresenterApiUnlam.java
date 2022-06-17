@@ -72,10 +72,6 @@ public class PresenterApiUnlam implements ContractApiUnlam.Presenter, ContractAp
     }
 
     @Override
-    public void onEventLog(boolean result, String token) {
-    }
-
-    @Override
     public void onEventLogin(boolean result, String token) {
         if(result){
             model.setToken(token);
